@@ -57,13 +57,13 @@ aws s3 cp ${filename} s3://${s3_bucket}/${filename}
 
 
 #Task 3 - To keep logs in inventory.html
-	if [ -e /var/www/html/inventory.html ]
+       if [ -e /var/www/html/inventory.html ]
        then
           echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp; $filesize " >> /var/www/html/inventory.html
-    	else
+       else
           echo "Log Type &nbsp;&nbsp;&nbsp;  Date Created &nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp;  Size<br>" >> /var/www/html/inventory.html
           echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp; $filesize" >> /var/www/html/inventory.html
-   	fi
+       fi
 
 # check cron file is exist of not, if it is doesn't exist then create it
 # Note:- script will execute once in day at 4.05AM
