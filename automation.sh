@@ -3,11 +3,11 @@
 s3_bucket="upgrad-anoop"
 name=anoop
 
-set -eu -o pipefail # fail on error , debug all lines
-sudo -n true
-test $? -eq 0 || exit 1 "You should have Sudo Privilege to run this Script"
-echo "Package Updates"
-sudo apt-get update -y
+echo "Updating the Packages"
+
+run_sudo=$(sudo apt update -y)
+echo "$run_sudo"
+
 if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
        sudo apt install -y apache2
