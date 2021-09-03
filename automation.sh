@@ -1,8 +1,7 @@
 #!/bin/bash
+
 s3_bucket="upgrad-anoop"
 name=anoop
-timestamp="$(date '+%d%m%Y-%H%M%S')"
-filename="/tmp/${myname}-httpd-logs-${timestamp}.tar"
 
 set -eu -o pipefail # fail on error , debug all lines
 sudo -n true
@@ -11,18 +10,18 @@ echo "Package Updates"
 sudo apt-get update -y
 if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
-	  sudo apt install -y apache2
-  else 
-          echo "Package already installed"	  
+       sudo apt install -y apache2
+else 
+       echo "Package already installed"	  
 fi
   
 package_check_awscli=`apt -qq list awscli --installed |wc -l`
 
   if [ $package_check_awscli == 0 ]
   then
-        apt-get install awscli -y
+       apt-get install awscli -y
   else
-        echo "AWS CLI installed already"  
+       echo "AWS CLI installed already"  
   fi
 
 #check Apache running status 
@@ -38,8 +37,11 @@ apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 
 
 if [ $apache_check == "(dead)" ]
 then
-     systemctl enable apache2.service
+    systemctl enable apache2.service
 fi
+
+timestamp="$(date '+%d%m%Y-%H%M%S')"
+filename="/tmp/${myname}-httpd-logs-${timestamp}.tar"
 
 #create tar file
 tar -cvf ${filename} $( find /var/log/apache2/ -name "*.log")
