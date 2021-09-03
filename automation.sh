@@ -1,44 +1,44 @@
 #!/bin/bash
 
-  s3_bucket="upgrad-anoop"
-  myname=anoop
+   s3_bucket="upgrad-anoop"
+   myname=anoop
 
-  echo "Updating the Packages"
+   echo "Updating the Packages"
 
-  run_sudo=$(sudo apt update -y)
-  echo "$run_sudo"
+   run_sudo=$(sudo apt update -y)
+   echo "$run_sudo"
 
-  if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ];
-  then
-     sudo apt install -y apache2
-  else 
-     echo "Package already installed"	  
-  fi
+   if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ];
+   then
+      sudo apt install -y apache2
+   else 
+      echo "Package already installed"	  
+   fi
  
 package_check_awscli=`apt -qq list awscli --installed |wc -l`
 
-  if [ $package_check_awscli == 0 ]
-  then
+   if [ $package_check_awscli == 0 ]
+   then
      apt-get install awscli -y
-  else
+   else
      echo "AWS CLI installed already"  
-  fi
+   fi
 
 #check Apache running status 
-  if pgrep -x "apache2" >/dev/null
-  then 
+   if pgrep -x "apache2" >/dev/null
+   then 
      echo "apache2 is running"
-  else
+   else
      service apache2 start
-  fi  
+   fi  
 
-check apache enabled or not
+#check apache enabled or not
 apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 }'`
 
- if [ $apache_check == "(dead)" ]
- then
+  if [ $apache_check == "(dead)" ]
+  then
     systemctl enable apache2.service
- fi
+  fi
 
   timestamp="$(date '+%d%m%Y-%H%M%S')"
   filename="/tmp/${myname}-httpd-logs-${timestamp}.tar"
