@@ -53,9 +53,9 @@ apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 
 
 #Copying to AWS S3 bucket
 
-   aws s3 cp ${filename} s3://${s3_bucket}/${filename}
+  aws s3 cp ${filename} s3://${s3_bucket}/${filename}
 
-
+  
 #Task 3 - To keep logs in inventory.html
      if [ -e /var/www/html/inventory.html ]
      then
