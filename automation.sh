@@ -33,12 +33,12 @@ else
 fi  
 
 #check apache enabled or not
-apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 }'`
+ apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 }'`
 
-if [ $apache_check == "(dead)" ]
-then
-    systemctl enable apache2.service
-fi
+ if [ $apache_check == "(dead)" ]
+ then
+   systemctl enable apache2.service
+ fi
 
 timestamp="$(date '+%d%m%Y-%H%M%S')"
 filename="/tmp/${myname}-httpd-logs-${timestamp}.tar"
