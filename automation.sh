@@ -65,21 +65,3 @@ aws s3 cp ${filename} s3://${s3_bucket}/${filename}
 #then
 #   echo "5 4 * * * root /root/Automation_Project/automation.sh" > /etc/cron.d/automation
 #fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
