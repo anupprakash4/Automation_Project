@@ -10,17 +10,14 @@ echo "Package Updates"
 sudo apt-get update -y
 if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
-<<<<<<< HEAD
     sudo apt install -y apache2
 else 
     echo "Package already installed"	  
-=======
-       sudo apt install -y apache2
+      sudo apt install -y apache2
 else 
        echo "Package already installed"	  
->>>>>>> Dev
 fi
-  
+ 
 package_check_awscli=`apt -qq list awscli --installed |wc -l`
 
   if [ $package_check_awscli == 0 ]
