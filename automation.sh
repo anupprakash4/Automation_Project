@@ -61,12 +61,11 @@ aws s3 cp ${filename} s3://${s3_bucket}/${filename}
 	fi
 
 # check cron file is exist of not, if it is doesn't exist then create it
-# Note:- script will execute once in day at 3.30AM
+# Note:- script will execute once in day at 4.05AM
 if  [ ! -f  /etc/cron.d/automation ]
 then
    echo "5 4 * * * root /root/Automation_Project/automation.sh" > /etc/cron.d/automation
 fi
-
 
 
 
