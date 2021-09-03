@@ -1,4 +1,5 @@
 #!/bin/bash
+
 s3_bucket="upgrad-anoop"
 name=anoop
 timestamp="$(date '+%d%m%Y-%H%M%S')"
