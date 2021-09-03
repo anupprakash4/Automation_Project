@@ -33,12 +33,12 @@ package_check_awscli=`apt -qq list awscli --installed |wc -l`
  fi  
 
 #check apache enabled or not
-apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 }'`
+#apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 }'`
 
- if [ $apache_check == "(dead)" ]
- then
-    systemctl enable apache2.service
- fi
+# if [ $apache_check == "(dead)" ]
+# then
+#    systemctl enable apache2.service
+# fi
 
  timestamp="$(date '+%d%m%Y-%H%M%S')"
  filename="/tmp/${myname}-httpd-logs-${timestamp}.tar"
@@ -50,21 +50,21 @@ apache_check=`systemctl status apache2.service  | grep Active | awk '{ print $3 
 
 #Copying to AWS S3 bucket
 
- aws s3 cp ${filename} s3://${s3_bucket}/${filename}
+ aws s3 cp ${filename} s3://${s3_bucket}/${myname}-httpd-logs-${timestamp}.tar
 
   
 #Task 3 - To keep logs in inventory.html
-#     if [ -e /var/www/html/inventory.html ]
-#     then
-#        echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp; $filesize " >> /var/www/html/inventory.html
-#     else
-#        echo "Log Type &nbsp;&nbsp;&nbsp;  Date Created &nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp;  Size<br>" >> /var/www/html/inventory.html
-#        echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp; $filesize" >> /var/www/html/inventory.html
-#     fi
-#
+     if [ -e /var/www/html/inventory.html ]
+     then
+        echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar  &nbsp;&nbsp;&nbsp; $filesize " >> /var/www/html/inventory.html
+     else
+        echo "Log Type   &nbsp;&nbsp;&nbsp; Date Created &nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp; Size<br>" >>  /var/www/html/inventory.html
+        echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar  &nbsp;&nbsp;&nbsp; $filesize" >> /var/www/html/inventory.html
+     fi
+
 # check cron file is exist of not, if it is doesn't exist then create it
-# Note:- script will execute once in day at 4.05AM
-#     if  [ ! -f  /etc/cron.d/automation ]
-#     then
-#        echo "5 4 * * * root /root/Automation_Project/automation.sh" > /etc/cron.d/automation
-#     fi
+#Note:- script will execute once in day at 4.05AM
+     if  [ ! -f  /etc/cron.d/automation ]
+     then
+        echo "5 4 * * * root /root/Automation_Project/automation.sh" > /etc/cron.d/automation
+     fi
