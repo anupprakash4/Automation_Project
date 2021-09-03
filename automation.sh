@@ -58,7 +58,7 @@ filesize=$(du -sh $filename | awk '{print $1}')
 
 aws s3 cp ${filename} s3://${s3_bucket}/${filename}
 
-Task 3 - To keep logs in inventory.html
+#Task 3 - To keep logs in inventory.html
 	if [ -e /var/www/html/inventory.html ]
 	then
 	    echo "httpd-logs &nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp; $filesize " >> /var/www/html/inventory.html
