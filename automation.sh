@@ -1,7 +1,7 @@
 #!/bin/bash
 
 s3_bucket="upgrad-anoop"
-name=anoop
+myname=anoop
 
 echo "Updating the Packages"
 
